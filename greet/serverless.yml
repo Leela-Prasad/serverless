@@ -1,0 +1,24 @@
+# "org" ensures this Service is used with the correct Serverless Framework Access Key.
+org: leela
+# "service" is the name of this project. This will also be added to your AWS resource names.
+service: greet
+
+provider:
+  name: aws
+  runtime: nodejs22.x
+  region: ap-south-1
+
+functions:
+  hello:
+    handler: handler.hello
+    events:
+      - httpApi:
+          path: /greet
+          method: get
+
+  anotherGreet:
+    handler: anotherGreet.anotherGreet
+    events:
+      - httpApi:
+          path: /greet
+          method: post
