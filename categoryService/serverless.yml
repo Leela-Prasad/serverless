@@ -11,6 +11,7 @@ provider:
     REGION: ap-south-1
     BUCKET_NAME: category-images-leela239
     DYNAMODB_TABLE: Categories
+    SNS_CATEGORY_CLEANUP_TOPIC_ARN: arn:aws:sns:ap-south-1:117915829123:CategoryCleanupTopic
   iamRoleStatements:
     - Effect: Allow
       Action:
@@ -20,7 +21,13 @@ provider:
       Action:
         - dynamodb:PutItem
         - dynamodb:UpdateItem
+        - dynamodb:Scan
+        - dynamodb:DeleteItem
       Resource: arn:aws:dynamodb:ap-south-1:117915829123:table/Categories
+    - Effect: Allow
+      Action:
+        - sns:Publish
+      Resource: arn:aws:sns:ap-south-1:117915829123:CategoryCleanupTopic
 
 resources:
   Resources:
@@ -41,6 +48,17 @@ resources:
           - AttributeName: fileName
             KeyType: HASH
 
+    CategoryCleanupTopic:
+      Type: AWS::SNS::Topic
+      Properties:
+        TopicName: CategoryCleanupTopic
+    CategoryCleanupSubscription:
+      Type: AWS::SNS::Subscription
+      Properties:
+        TopicArn: !Ref CategoryCleanupTopic
+        Protocol: email
+        Endpoint: leelajobs239@gmail.com
+
 functions:
   getUploadUrl:
     handler: handlers/getUploadUrl.getUploadUrl
@@ -55,3 +73,7 @@ functions:
           bucket: category-images-leela239
           event: s3:ObjectCreated:Put
           existing: true
+  cleanupCategories:
+    handler: handlers/cleanupCategories.cleanupCategories
+    events:
+      - schedule: rate(2 minutes)
