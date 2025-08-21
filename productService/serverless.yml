@@ -7,6 +7,22 @@ provider:
   name: aws
   runtime: nodejs22.x
   region: ap-south-1
+  environment:
+    REGION: ap-south-1
+    BUCKET_NAME: product-images-leela239
+    DYNAMODB_TABLE: Products
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - s3:PutObject
+      Resource: arn:aws:s3:::product-images-leela239/*
+    - Effect: Allow
+      Action:
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:Scan
+        - dynamodb:DeleteItem
+      Resource: arn:aws:dynamodb:ap-south-1:117915829123:table/Products
 
 resources:
   Resources:
@@ -25,15 +41,39 @@ resources:
       Type: AWS::S3::Bucket
       Properties:
         BucketName: product-images-leela239
+    ProductCleanupTopic:
+      Type: AWS::SNS::Topic
+      Properties:
+        TopicName: ProdcutCleanupTopic
+    ProductCleanupSubscription:
+      Type: AWS::SNS::Subscription
+      Properties:
+        TopicArn: !Ref ProductCleanupTopic
+        Protocol: email
+        Endpoint: leelajobs239@gmail.com
 
 functions:
   hello:
-    handler: handler.hello
+    handler: handlers/getUploadUrl.getUploadUrl
     events:
       - http:
-          path: /
+          path: /get-upload-url
+          method: post
+          # authorizer:
+          #   type: COGNITO_USER_POOLS
+          #   arn: asdf
+          #   identitySource: method.request.header.Authorization
+  getApprovedProducts:
+    handler: handlers/getApprovedProducts.getApprovedProducts
+    events:
+      - http:
+          path: /approved-products
           method: get
-          authorizer:
-            type: COGNITO_USER_POOLS
-            arn: asdf
-            identitySource: method.request.header.Authorization
+  updateProductImage:
+    handler: handlers/updateProductImage.updateProductImage
+    events:
+      - s3:
+          bucket: product-images-leela239
+          event: s3:ObjectCreated:Put
+          existing: true
+
