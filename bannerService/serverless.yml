@@ -19,6 +19,7 @@ provider:
     - Effect: Allow
       Action:
         - dynamodb:PutItem
+        - dynamodb:Scan
       Resource: arn:aws:dynamodb:ap-south-1:117915829123:table/Banners
 
 resources:
@@ -46,6 +47,12 @@ functions:
       - httpApi:
           path: /upload-banner
           method: post
+  getAllBanners:
+    handler: handlers/getAllBanners.getAllBanners
+    events:
+      - httpApi:
+          path: /banners
+          method: get
   confirmUpload:
     handler: handlers/confirmUpload.confirmUpload
     events:

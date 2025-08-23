@@ -64,8 +64,14 @@ functions:
     handler: handlers/getUploadUrl.getUploadUrl
     events:
       - httpApi:
-          path: /uplaod-url
+          path: /upload-url
           method: post
+  getAllCategories:
+    handler: handlers/getAllCategories.getAllCategories
+    events:
+      - httpApi:
+          path: /categories
+          method: get
   updateCategoryImage:
     handler: handlers/updateCategoryImage.updateCategoryImage
     events:
@@ -73,7 +79,7 @@ functions:
           bucket: category-images-leela239
           event: s3:ObjectCreated:Put
           existing: true
-  cleanupCategories:
-    handler: handlers/cleanupCategories.cleanupCategories
-    events:
-      - schedule: rate(2 minutes)
+  # cleanupCategories:
+  #   handler: handlers/cleanupCategories.cleanupCategories
+  #   events:
+  #     - schedule: rate(2 minutes)
