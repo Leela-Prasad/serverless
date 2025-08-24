@@ -75,7 +75,7 @@ exports.placeOrder = async (event) => {
 
         await sfnClient.send(new StartExecutionCommand({
             stateMachineArn: process.env.STEP_FUNCTION_ARN,
-            input: JSON.stringify({...orderPayload})
+            input: JSON.stringify(orderPayload)
         }))
 
         // const command = new PutItemCommand({

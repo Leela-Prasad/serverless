@@ -9,7 +9,6 @@ const tableName = process.env.DYNAMODB_TABLE
 
 exports.updateOrderStatus = async (event) => {
     try {
-        console.log(event);
         const {id} = event
 
         const command = new UpdateItemCommand({
@@ -23,8 +22,6 @@ exports.updateOrderStatus = async (event) => {
                 ":newStatus": {S: "processing"}
             }
         })
-
-        console.log(command);
         
         await client.send(command)
 
