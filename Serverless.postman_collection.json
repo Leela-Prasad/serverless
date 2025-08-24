@@ -1,0 +1,333 @@
+{
+	"info": {
+		"_postman_id": "5bed3828-3bc9-4971-b96e-2cf44e0c71e3",
+		"name": "Serverless",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "13170497"
+	},
+	"item": [
+		{
+			"name": "CategoryService",
+			"item": [
+				{
+					"name": "Categories",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://0kw4t24u1b.execute-api.ap-south-1.amazonaws.com/categories",
+							"protocol": "https",
+							"host": [
+								"0kw4t24u1b",
+								"execute-api",
+								"ap-south-1",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Category",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"fileName\": \"Mcafeepayment\",\r\n    \"fileType\": \"img/png\",\r\n    \"categoryName\": \"payments\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://0kw4t24u1b.execute-api.ap-south-1.amazonaws.com/upload-url",
+							"protocol": "https",
+							"host": [
+								"0kw4t24u1b",
+								"execute-api",
+								"ap-south-1",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"upload-url"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ProductService",
+			"item": [
+				{
+					"name": "products",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://k7lgft6eo6.execute-api.ap-south-1.amazonaws.com/dev/approved-products",
+							"protocol": "https",
+							"host": [
+								"k7lgft6eo6",
+								"execute-api",
+								"ap-south-1",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"dev",
+								"approved-products"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "OrderService",
+			"item": [
+				{
+					"name": "createorder",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJraWQiOiJZOTg2NmI3Z2R5UDVTYXE3Ym1xRGdsYmIyK2hoeWZQdjNcL2tkamtFSGMraz0iLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiI5MTgzOGQyYS0zMDAxLTcwYTItMjVkMC1lNzM5MDdjZjgzNTMiLCJpc3MiOiJodHRwczpcL1wvY29nbml0by1pZHAuYXAtc291dGgtMS5hbWF6b25hd3MuY29tXC9hcC1zb3V0aC0xX3lGdlpNYndGYiIsImNsaWVudF9pZCI6IjE4ZXM4YzhwcGRybnNtaGJpN2Fzcm1ia2sxIiwib3JpZ2luX2p0aSI6Ijk2ODVjMmEzLWVmMGItNGNhZC04YzczLWM1ZDEzMzVjZDRhNCIsImV2ZW50X2lkIjoiNzBjYmI4MjgtZWI5ZC00MzQxLWI4NzUtNmZiM2U4MjRmMDY3IiwidG9rZW5fdXNlIjoiYWNjZXNzIiwic2NvcGUiOiJhd3MuY29nbml0by5zaWduaW4udXNlci5hZG1pbiIsImF1dGhfdGltZSI6MTc1NjAwMzkxMSwiZXhwIjoxNzU2MDA3NTExLCJpYXQiOjE3NTYwMDM5MTEsImp0aSI6ImJmZGYyYzA5LWJlYzUtNDk4YS1iMjgxLWYxNDZmOGE3OWQwNCIsInVzZXJuYW1lIjoiOTE4MzhkMmEtMzAwMS03MGEyLTI1ZDAtZTczOTA3Y2Y4MzUzIn0.ZD-FtVOWP2khgocFPqWSk2bsxLvl_AW_YqK9YmK9qKa_ArUWabxv43Fd0Po6n5Tv2ElyvY858MTk47iMzdSmt4JoJ5yc1jsjdswEgJaN-hj_bXovNt5oO8f-pcu7-EG3PB9J8nr-6SNzyzDckcCR6fh0m0y2-v9GsS6Q23XuHP6N54y0gGtXQc5z9eJzFWhoMvqZ_wh2JnCmMTki3RO7Xlit--rEksW5rvgK6oOFye_lZCLXvrEcz_C9KmqGEXc7rwY49dTxETalqiN6bZhxopYigv-DwjDsc-h5uPNsiM-Tb9CbbxrLLMkhVYnmZU-hNCUVlhSmeuahe9RtFGGvtg",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"ee9e7eba-3b93-4f5b-b884-27264387957f\",\r\n    \"quantity\": 1,\r\n    \"email\": \"test@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://c9u7q88jsa.execute-api.ap-south-1.amazonaws.com/create-order",
+							"protocol": "https",
+							"host": [
+								"c9u7q88jsa",
+								"execute-api",
+								"ap-south-1",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"create-order"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Signup",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"leelaprasad.jagu@gmail.com\",\r\n    \"password\": \"XXXX\",\r\n    \"fullName\": \"Leela\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://xn4vtwwjk7.execute-api.ap-south-1.amazonaws.com/signUp",
+							"protocol": "https",
+							"host": [
+								"xn4vtwwjk7",
+								"execute-api",
+								"ap-south-1",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"signUp"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "confirmSignup",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"leelaprasad.jagu@gmail.com\",\r\n    \"confirmationCode\": \"823344\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://xn4vtwwjk7.execute-api.ap-south-1.amazonaws.com/confirmSignup",
+							"protocol": "https",
+							"host": [
+								"xn4vtwwjk7",
+								"execute-api",
+								"ap-south-1",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"confirmSignup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "signin",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"leelaprasad.jagu@gmail.com\",\r\n    \"password\": \"XXXX\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://xn4vtwwjk7.execute-api.ap-south-1.amazonaws.com/signIn",
+							"protocol": "https",
+							"host": [
+								"xn4vtwwjk7",
+								"execute-api",
+								"ap-south-1",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"signIn"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "signout",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"accessToken\": \"eyJraWQiOiJZOTg2NmI3Z2R5UDVTYXE3Ym1xRGdsYmIyK2hoeWZQdjNcL2tkamtFSGMraz0iLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiI5MTgzOGQyYS0zMDAxLTcwYTItMjVkMC1lNzM5MDdjZjgzNTMiLCJpc3MiOiJodHRwczpcL1wvY29nbml0by1pZHAuYXAtc291dGgtMS5hbWF6b25hd3MuY29tXC9hcC1zb3V0aC0xX3lGdlpNYndGYiIsImNsaWVudF9pZCI6IjE4ZXM4YzhwcGRybnNtaGJpN2Fzcm1ia2sxIiwib3JpZ2luX2p0aSI6IjQ5MDU5N2Y3LTVhZTMtNGNkNC05MWFlLWI0YjlmMWYxN2ZhMiIsImV2ZW50X2lkIjoiNGYxMWQ0N2UtZTU4YS00NzFkLWI4NWEtNThkZjFhMTJmNWZlIiwidG9rZW5fdXNlIjoiYWNjZXNzIiwic2NvcGUiOiJhd3MuY29nbml0by5zaWduaW4udXNlci5hZG1pbiIsImF1dGhfdGltZSI6MTc1NjAwMzgxMSwiZXhwIjoxNzU2MDA3NDExLCJpYXQiOjE3NTYwMDM4MTEsImp0aSI6IjdiNTM0YTM5LTYzZjItNGVjZC1iYTlmLWE3N2ZmMjAzODE3ZiIsInVzZXJuYW1lIjoiOTE4MzhkMmEtMzAwMS03MGEyLTI1ZDAtZTczOTA3Y2Y4MzUzIn0.FqhiedJ5cjW1blXVK7eP7fMgJJzE2defNAPDZPBMs7JLRP3RJ3WSEYI6XBKzznZ9zX7rEko2d6pcXr0RALT7Qf7pfQXVUSgUlApVjBjMnsj0LTwDxKdMUjczl12bdGrS_TFMusolOljokNnmKZuQsreo8cIszARBYxDkpOBZ4-IbTwA9vZ2jkUEOD9QSfROUtLdZCJmLJ2Kz2CDq78Isz02PVN9agXoUV8tBHl4891_T6VRDI1xHKKLy_4hS0B5ZuwDn7VvayYqm0vsludWFQEG2z8-_8jdrQ4XAbxJcl2A3QHhX96NYv48ekOcCH-CphUbs6grxC6Ka2r8n3ImULw\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://fj8vp15gmj.execute-api.ap-south-1.amazonaws.com/signOut",
+							"protocol": "https",
+							"host": [
+								"fj8vp15gmj",
+								"execute-api",
+								"ap-south-1",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"signOut"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "forgotPassword",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"leelaprasad.jagu@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://xn4vtwwjk7.execute-api.ap-south-1.amazonaws.com/forgot-password",
+							"protocol": "https",
+							"host": [
+								"xn4vtwwjk7",
+								"execute-api",
+								"ap-south-1",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"forgot-password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "confirmForgotPassword",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"leelaprasad.jagu@gmail.com\",\r\n    \"code\": \"568817\",\r\n    \"newPassword\": \"XXXX\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://xn4vtwwjk7.execute-api.ap-south-1.amazonaws.com/confirm-forgot-password",
+							"protocol": "https",
+							"host": [
+								"xn4vtwwjk7",
+								"execute-api",
+								"ap-south-1",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"confirm-forgot-password"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
