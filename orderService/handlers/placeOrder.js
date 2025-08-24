@@ -1,8 +1,13 @@
 const {DynamoDBClient, PutItemCommand} = require("@aws-sdk/client-dynamodb")
 const {v4: uuid} = require("uuid")
 const axios = require("axios")
+const {SQSClient, SendMessageCommand} = require("@aws-sdk/client-sqs")
 
-const client = new DynamoDBClient({
+// const client = new DynamoDBClient({
+//     region: process.env.REGION
+// })
+
+const sqsClient = new SQSClient({
     region: process.env.REGION
 })
 
@@ -48,22 +53,38 @@ exports.placeOrder = async (event) => {
         }
 
         const orderId = uuid()
-        const command = new PutItemCommand({
-            TableName: tableName,
-            Item: {
-                id: {S: orderId},
-                productId: {S: id},
-                quantity: {N: quantity.toString()},
-                email: {S: email}
-            }
-        })
+        const orderPayload = {
+            id: orderId,
+            productId: id,
+            quantity: quantity,
+            email: email,
+            status: "pending",
+            createdAt: new Date().toISOString()
+        }
 
-        await client.send(command)
+        await sqsClient.send(new SendMessageCommand({
+            QueueUrl: process.env.SQS_ORDER_QUEUE_URL,
+            MessageBody: JSON.stringify(orderPayload)
+        }))
+
+        // const command = new PutItemCommand({
+        //     TableName: tableName,
+        //     Item: {
+        //         id: {S: orderId},
+        //         productId: {S: id},
+        //         quantity: {N: quantity.toString()},
+        //         email: {S: email},
+        //         status: "pending",
+        //         createdAt: new Date().toISOString()
+        //     }
+        // })
+
+        // await client.send(command)
 
         return {
             statusCode: 201,
             body: JSON.stringify({
-                message: "Order Placed Successfully" + orderId
+                message: "Order Placed Successfully, OrderId :: " + orderId
             })
         }
 
