@@ -17,6 +17,8 @@ const region = process.env.REGION
 exports.placeOrder = async (event) => {
     const {id, quantity, email} = JSON.parse(event.body)
 
+    // Extracting email from JWT ID Token
+    // const email = event.requestContext.authorizer.jwt.claims.email
     if(!id || !quantity || !email) {
         return {
             statusCode: 400,
