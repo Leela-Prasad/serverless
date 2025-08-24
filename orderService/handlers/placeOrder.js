@@ -2,6 +2,7 @@ const {DynamoDBClient, PutItemCommand} = require("@aws-sdk/client-dynamodb")
 const {v4: uuid} = require("uuid")
 const axios = require("axios")
 const {SQSClient, SendMessageCommand} = require("@aws-sdk/client-sqs")
+const {SFNClient, StartExecutionCommand} = require("@aws-sdk/client-sfn")
 
 // const client = new DynamoDBClient({
 //     region: process.env.REGION
@@ -11,6 +12,9 @@ const sqsClient = new SQSClient({
     region: process.env.REGION
 })
 
+const sfnClient = new SFNClient({
+    region: process.env.REGION
+})
 const tableName = process.env.DYNAMODB_TABLE
 const region = process.env.REGION
 
@@ -67,6 +71,11 @@ exports.placeOrder = async (event) => {
         await sqsClient.send(new SendMessageCommand({
             QueueUrl: process.env.SQS_ORDER_QUEUE_URL,
             MessageBody: JSON.stringify(orderPayload)
+        }))
+
+        await sfnClient.send(new StartExecutionCommand({
+            stateMachineArn: process.env.STEP_FUNCTION_ARN,
+            input: JSON.stringify({...orderPayload})
         }))
 
         // const command = new PutItemCommand({

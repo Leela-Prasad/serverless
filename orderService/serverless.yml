@@ -3,6 +3,9 @@ org: leela
 # "service" is the name of this project. This will also be added to your AWS resource names.
 service: orderService
 
+plugins:
+  - serverless-step-functions
+
 provider:
   name: aws
   runtime: nodejs22.x
@@ -25,6 +28,7 @@ provider:
     - Effect: Allow
       Action:
         - dynamodb:PutItem
+        - dynamodb:UpdateItem
       Resource: !GetAtt OrdersTable.Arn
     - Effect: Allow
       Action:
@@ -32,6 +36,10 @@ provider:
         - sqs:ReceiveMessage
         - sqs:DeleteMessage
       Resource: !GetAtt OrderQueue.Arn
+    - Effect: Allow
+      Action:
+        - states:StartExecution
+      Resource: arn:aws:states:ap-south-1:117915829123:stateMachine:OrderProcessingStateMachine
 resources:
   Resources:
     OrdersTable:
@@ -53,6 +61,9 @@ resources:
 functions:
   placeOrder:
     handler: handlers/placeOrder.placeOrder
+    environment:
+      STEP_FUNCTION_ARN: 
+        Ref: OrderProcessingStateMachine
     events:
       - httpApi:
           path: /create-order
@@ -64,3 +75,23 @@ functions:
     events:
       - sqs:
           arn: !GetAtt OrderQueue.Arn
+  updateOrderStatus:
+    handler: handlers/updateOrderStatus.updateOrderStatus
+
+stepFunctions:
+  stateMachines:
+    OrderProcessingStateMachine:
+      name: OrderProcessingStateMachine
+      definition:
+        Comment: "Order Processing with status update"
+        StartAt: UpdateStatusToProcessing
+        States:
+          UpdateStatusToProcessing:
+            Type: Task
+            Resource: !GetAtt updateOrderStatus.Arn
+            Next: NotifyUser
+          NotifyUser:
+            Type: Pass
+            Result: "User Notified"
+            End: true
+
