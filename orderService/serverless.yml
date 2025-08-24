@@ -40,12 +40,12 @@ provider:
       Action:
         - states:StartExecution
       Resource: arn:aws:states:ap-south-1:117915829123:stateMachine:OrderProcessingStateMachine
-    - Effect: Allow
-      Action:
-        - ses:SendEmail
-      Resource: 
-        - arn:aws:ses:ap-south-1:117915829123:identity/leelajobs239@gmail.com
-        - arn:aws:ses:ap-south-1:117915829123:identity/leelaprasad.jagu@gmail.com
+    # - Effect: Allow
+    #   Action:
+    #     - ses:SendEmail
+    #   Resource: 
+    #     - arn:aws:ses:ap-south-1:117915829123:identity/leelajobs239@gmail.com
+    #     - arn:aws:ses:ap-south-1:117915829123:identity/leelaprasad.jagu@gmail.com
 resources:
   Resources:
     OrdersTable:

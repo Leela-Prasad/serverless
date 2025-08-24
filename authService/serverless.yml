@@ -56,4 +56,15 @@ functions:
       - httpApi:
           path: /signOut
           method: post
-    
+  forgotPassword:
+    handler: handlers/forgotPassword.forgotPassword
+    events:
+      - httpApi:
+          path: /forgot-password
+          method: post
+  confirmForgotPassword:
+    handler: handlers/confirmForgotPassword.confirmForgotPassword
+    events:
+      - httpApi:
+          path: /confirm-forgot-password
+          method: post
