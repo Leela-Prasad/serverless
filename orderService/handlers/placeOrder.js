@@ -1,6 +1,7 @@
 const {DynamoDBClient, PutItemCommand} = require("@aws-sdk/client-dynamodb")
 const {v4: uuid} = require("uuid")
 const axios = require("axios")
+const {sendEmail} = require("../services/sendEmail")
 const {SQSClient, SendMessageCommand} = require("@aws-sdk/client-sqs")
 const {SFNClient, StartExecutionCommand} = require("@aws-sdk/client-sfn")
 
@@ -78,6 +79,13 @@ exports.placeOrder = async (event) => {
             input: JSON.stringify(orderPayload)
         }))
 
+        const emailParams = {
+            toEmail: "leelaprasad.jagu@gmail.com",
+            orderId: orderId,
+            productName: product.productName?.S || "Unknown Product",
+            quantity: quantity
+        }
+        await sendEmail(emailParams)
         // const command = new PutItemCommand({
         //     TableName: tableName,
         //     Item: {
