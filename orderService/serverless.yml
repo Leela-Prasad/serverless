@@ -11,6 +11,16 @@ provider:
     REGION: ap-south-1
     DYNAMODB_TABLE: Orders
     SQS_ORDER_QUEUE_URL: https://sqs.ap-south-1.amazonaws.com/117915829123/OrderQueue
+  httpApi:
+    authorizers:
+      myCognitoAuth:
+        identitySource: $request.header.Authorization   #Extract JWT Token from Authorization Header
+        # who issued the token - URL of cognito pool (Need to verify tokens)
+        issuerUrl: https://cognito-idp.ap-south-1.amazonaws.com/ap-south-1_yFvZMbwFb
+        # cognito App clientID
+        audience:
+          - ${ssm:/CLIENT_ID}
+
   iamRoleStatements:
     - Effect: Allow
       Action:
@@ -47,6 +57,8 @@ functions:
       - httpApi:
           path: /create-order
           method: post
+          authorizer:
+            name: myCognitoAuth
   processOrder:
     handler: handlers/processOrder.processOrder
     events:
